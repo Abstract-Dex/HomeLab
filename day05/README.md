@@ -52,10 +52,20 @@ sudo mount -t nfs <truenas_ip>:/mnt/Vault/media /mnt/media
 Added to `/etc/fstab`:
 
 ```bash
-<truenas_ip>:/mnt/Vault/media /mnt/media nfs defaults,_netdev 0 0
+<truenas_ip>:/mnt/Vault/media /mnt/media nfs4 defaults,_netdev 0 0
 ```
 
 ---
+
+### D. Verify NFS Mount
+
+```bash
+df -h #check for nfs mount
+```
+
+```bash
+showmount -e <truenas_ip> #check available NFS exports
+```
 
 ## ✅ Step 3: Set Permissions for Plex
 
