@@ -15,6 +15,7 @@ This home lab is designed to provide a robust, flexible environment for:
 - [Day 1 – Proxmox Installation](./day01/)
 - [Day 2 – VMs and Containers](./day02/)
 - [Day 3 – NAS with TrueNAS](./day03/)
+- [Day 4 - Troubleshooting and Optimization](./day04/)
 
 ## 🔧 Tech Stack
 
