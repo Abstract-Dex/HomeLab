@@ -32,6 +32,44 @@ I installed **Proxmox VE** as the hypervisor to manage virtual machines and cont
 - 💾 Assigned the **entire SSD** to VM storage by resizing the default LVM volume.
 - ✅ Followed [NetworkChuck's Guide](https://youtu.be/_u8qTN3cCnQ?si=YN1loWA8t-FmFq3s) for a smooth installation process.
 
-🔄 After installation, I **updated the system** via the Proxmox web interface under the **“Updates”** tab to ensure I had the latest patches and features.
+### First things I did after installation:
 
----
+#### Updating Proxmox without subscription
+
+```bash
+#configure the sources.list file
+vim /etc/apt/sources.list
+
+#add the following lines
+deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
+deb http://download.proxmox.com/debian/ceph-quincy bookworm no-subscription
+
+#then we update the package list
+apt update
+
+#finally, we can install the latest updates
+apt dist-upgrade
+```
+
+#### Enabling IOMMU
+
+```bash
+#edit the GRUB configuration file
+vim /etc/default/grub
+
+#find the line starting with GRUB_CMDLINE_LINUX_DEFAULT and add the following parameters
+GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on" #for Intel CPUs
+GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on" #for AMD CPUs
+
+#update GRUB
+update-grub
+
+#add the following line to /etc/modules
+echo "vfio" >> /etc/modules
+echo "vfio_iommu_type1" >> /etc/modules
+echo "vfio_pci" >> /etc/modules
+echo "vfio_virqfd" >> /etc/modules
+
+#reboot the server
+reboot
+```
